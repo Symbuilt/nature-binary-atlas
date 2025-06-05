@@ -1,83 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Nature’s Binary Atlas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #111;
-      color: #f0f0f0;
-    }
-    header {
-      background: #1a1a1a;
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid #333;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 2rem;
-      color: #6cf2ff;
-      letter-spacing: 1px;
-      text-shadow: 0 0 8px rgba(108, 242, 255, 0.4);
-    }
-    .intro {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      font-size: 1rem;
-      line-height: 1.6;
-      text-align: center;
-      color: #ccc;
-    }
-    .container {
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .viewer {
-      flex: 2;
-      min-height: 400px;
-      border: 1px solid #444;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .sidebar {
-      flex: 1;
-      background: #1d1d1d;
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid #333;
-    }
-    .sidebar h2 {
-      font-size: 1.2rem;
-      color: #6cf2ff;
-    }
-    a {
-      color: #86d2ff;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Nature’s Binary Atlas</h1>
-  </header>
-  <section class="intro">
-    <p><em>What if carbon had a code? What if nature already speaks in binary?</em></p>
-    <p>This atlas visualizes symbolic carbon glyphs, binary signals, and real protein structures in a living scientific interface.</p>
-  </section>
-  <main class="container">
-    <div class="viewer" id="root"></div>
-    <div class="sidebar" id="sidebar">
-      <!-- React will populate this -->
+
+import React from "react";
+import MolecularViewer from "./MolecularViewer";
+
+const atlasData = [
+  {
+    id: "2J4W",
+    title: "Plasmodium vivax Apical Structure",
+    binary: "10101110101110111101100110110101100100101001001100010101",
+    glyphs: "✺✺❀❀✶⚗☍✷♁☿",
+    annotation: "Chromosome 23, mutation signal, molecular structure link",
+    link: "https://files.rcsb.org/download/2J4W.pdb",
+    tags: ["chromosome", "mutation"]
+  }
+];
+
+export default function NatureBinaryAtlas() {
+  const current = atlasData[0];
+
+  return (
+    <div style={{ display: "flex", flexDirection: "row", padding: "20px" }}>
+      <div style={{ flex: 2, height: "400px", marginRight: "20px" }}>
+        <MolecularViewer pdbUrl={current.link} />
+      </div>
+      <div style={{ flex: 1, background: "#f5f5f5", padding: "15px", borderRadius: "8px" }}>
+        <h2>{current.title}</h2>
+        <p><strong>Binary:</strong> <code>{current.binary}</code></p>
+        <p><strong>Glyphs:</strong> <span style={{ fontSize: "1.5em" }}>{current.glyphs}</span></p>
+        <p><strong>Annotation:</strong><br /> {current.annotation}</p>
+        <p><strong>Tags:</strong> {current.tags.join(", ")}</p>
+        <p><a href={current.link} target="_blank" rel="noopener noreferrer">🔗 View Raw PDB</a></p>
+      </div>
     </div>
-  </main>
-  <script src="main.js" type="module"></script>
-</body>
-</html>
+  );
+}
+
+
