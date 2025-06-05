@@ -29,6 +29,5 @@ export default function NatureBinaryAtlas() {
         <p><strong>Tags:</strong> {current.tags.join(", ")}</p>
         <p><a href={current.link} target="_blank" rel="noopener noreferrer">🔗 View Raw PDB</a></p>
       </div>
-    </div>
   );
 }
